@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event & Visit Planner</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">Planner System</div>
+    <ul class="nav-links">
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="{% url 'places' %}">Places</a></li>
+    <li><a href="{% url 'plan' %}">Plan</a></li>
+   
+</ul>
+
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <h1>Plan Events & Visits Effortlessly</h1>
+    <p>
+        A simple and flexible planning system to organize field visits,
+        events, weddings, tours, and group activities in one place.
+    </p>
+    <div style="margin-top:30px;">
+        <a href="/places/" class="btn">Browse Options</a>
+        <a href="/plan/" class="btn" style="margin-left:10px;">Start Planning</a>
+    </div>
+</section>
+
+<!-- PURPOSE SECTION -->
+<section class="features">
+    <div class="feature-card">
+        <h3>What is this System?</h3>
+        <p>
+            This planner helps users organize different types of visits and
+            events by managing locations, dates, and basic planning details
+            through a simple web interface.
+        </p>
+    </div>
+
+    <div class="feature-card">
+        <h3>Where Can It Be Used?</h3>
+        <p>
+            • Field visits<br>
+            • Weddings & functions<br>
+            • Tours & trips<br>
+            • Institutional or personal events
+        </p>
+    </div>
+
+    <div class="feature-card">
+        <h3>Why Use This?</h3>
+        <p>
+            It reduces manual coordination, improves organization,
+            and provides a clear workflow for planning any type of event or visit.
+        </p>
+    </div>
+</section>
+
+<!-- WORKFLOW -->
+<section class="hero" style="background:#ffffff;">
+    <h1 style="color:#2c3e50;">How It Works</h1>
+    <p style="color:#555;">
+        A simple step-by-step planning process
+    </p>
+</section>
+
+<section class="features">
+    <div class="feature-card">
+        <h3>1. View Places</h3>
+        <p>
+            Browse available places or locations suitable for visits or events.
+        </p>
+    </div>
+
+    <div class="feature-card">
+        <h3>2. Plan Details</h3>
+        <p>
+            Choose date, place, and basic information required for planning.
+        </p>
+    </div>
+
+    <div class="feature-card">
+        <h3>3. Manage & Organize</h3>
+        <p>
+            View and manage planned visits or events efficiently.
+        </p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p>© 2026 Planner System | Prototype Version</p>
+</footer>
+
+</body>
+</html>

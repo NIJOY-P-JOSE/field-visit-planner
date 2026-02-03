@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plan Visit | Field Visit Planner</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">Field Visit Planner</div>
+    <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/places/">Places</a></li>
+        <li><a href="/plan/">Plan Visit</a></li>
+        <li><a href="/about/">About</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <h1>Plan a Field Visit</h1>
+    <p>Fill the details to plan a visit (prototype)</p>
+</section>
+
+<section class="features">
+    <div class="feature-card">
+        <form>
+            <label>Choose Place</label><br><br>
+            <select style="width:100%; padding:8px;">
+                <option>Science Museum</option>
+                <option>IT Company</option>
+                <option>Power Plant</option>
+            </select><br><br>
+
+            <label>Select Date</label><br><br>
+            <input type="date" style="width:100%; padding:8px;"><br><br>
+
+            <button class="btn" type="submit">Submit Plan</button>
+        </form>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2026 Field Visit Planner</p>
+</footer>
+
+</body>
+</html>
