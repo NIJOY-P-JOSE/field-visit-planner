@@ -1,0 +1,15 @@
+<div class="table-responsive {% if extra_classes %}{{ extra_classes }}{% endif %}">
+    <table class="table">
+        <thead>
+            <tr>
+                {% for header in headers %}
+                <th>{{ header }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% block table_body %}
+            {% endblock %}
+        </tbody>
+    </table>
+</div>

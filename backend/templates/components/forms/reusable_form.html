@@ -1,0 +1,37 @@
+<form method="POST" action="{% if action_url %}{{ action_url }}{% else %}#{% endif %}" class="{% if extra_classes %}{{ extra_classes }}{% endif %}">
+    {% csrf_token %}
+    
+    {% if form.non_field_errors %}
+    <div class="form-group">
+        {% for error in form.non_field_errors %}
+        <div style="color: var(--danger); font-size: 0.875rem; padding: 0.75rem; background: #fee2e2; border-radius: var(--radius-md);">{{ error }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% for field in form %}
+    <div class="form-group">
+        <label for="{{ field.id_for_label }}" class="form-label">
+            {{ field.label }}
+            {% if field.field.required %}<span style="color: var(--danger);">*</span>{% endif %}
+        </label>
+        
+        {{ field }}
+        
+        {% if field.help_text %}
+        <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 0.25rem;">{{ field.help_text|safe }}</span>
+        {% endif %}
+        
+        {% for error in field.errors %}
+        <span style="font-size: 0.75rem; color: var(--danger); display: block; margin-top: 0.25rem;">{{ error }}</span>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <div class="form-actions" style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: flex-end;">
+        <a href="javascript:history.back()" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-save"></i> {{ submit_text|default:"Save Changes" }}
+        </button>
+    </div>
+</form>

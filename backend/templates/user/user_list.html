@@ -1,0 +1,98 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Users Directory - VisitPlanner{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h2>Users Directory</h2>
+        <p style="color: var(--text-muted); margin: 0;">Manage system users, field agents, and their roles.</p>
+    </div>
+    <a href="{% url 'user_create' %}" class="btn btn-primary"><i class="fa-solid fa-user-plus"></i> Add User</a>
+</div>
+
+<div class="card" style="margin-bottom: 2rem;">
+    <div class="card-body" style="padding: 1rem 1.5rem;">
+        <form method="GET" style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end;">
+            <div style="flex: 1; min-width: 200px;">
+                <label class="form-label" style="margin-bottom: 0.25rem; display: block;">Search</label>
+                <div style="position: relative;">
+                    <i class="fa-solid fa-search" style="position: absolute; left: 1rem; top: 1rem; color: var(--text-muted);"></i>
+                    <input type="text" name="q" class="form-control" placeholder="Search users by name, email..." style="padding-left: 2.5rem;">
+                </div>
+            </div>
+            <div style="width: 200px;">
+                <label class="form-label" style="margin-bottom: 0.25rem; display: block;">Role</label>
+                <select name="role" class="form-control">
+                    <option value="">All Roles</option>
+                    <option value="admin">Admin</option>
+                    <option value="coordinator">Coordinator</option>
+                    <option value="member">Field Agent</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-secondary" style="height: 42px;">Filter</button>
+        </form>
+    </div>
+</div>
+
+<div class="card" style="padding: 0;">
+    <div class="table-responsive" style="border: none; border-radius: 0;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Contact Info</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <div class="profile-avatar" style="width: 2.5rem; height: 2.5rem;">
+                                {{ u.username|first|upper|default:"U" }}
+                            </div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--text-main);">{{ u.get_full_name|default:u.username|default:"John Doe" }}</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">Joined {{ u.date_joined|date:"M Y"|default:"Oct 2023" }}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div><i class="fa-solid fa-envelope" style="color: var(--text-muted); width: 1rem;"></i> {{ u.email|default:"john@example.com" }}</div>
+                        <div style="font-size: 0.875rem; color: var(--text-muted); margin-top: 0.25rem;"><i class="fa-solid fa-phone" style="width: 1rem;"></i> {{ u.phone|default:"+1 234 567 890" }}</div>
+                    </td>
+                    <td>
+                        <div style="font-weight: 500;">{{ u.get_designation_display|default:"Field Coordinator" }}</div>
+                    </td>
+                    <td><span class="badge badge-success">Active</span></td>
+                    <td style="text-align: right;">
+                        <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+                            <a href="{% url 'user_profile' %}" class="btn btn-secondary btn-sm" title="View Profile"><i class="fa-solid fa-user"></i></a>
+                            <a href="#" class="btn btn-secondary btn-sm" title="Edit"><i class="fa-solid fa-edit"></i></a>
+                            <a href="#" class="btn btn-secondary btn-sm" style="color: var(--danger);" title="Delete"><i class="fa-solid fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 2rem;">No users found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="card-body" style="border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem;">
+        <span style="font-size: 0.875rem; color: var(--text-muted);">Showing entries</span>
+        <div style="display: flex; gap: 0.25rem;">
+            <button class="btn btn-secondary btn-sm" disabled>Previous</button>
+            <button class="btn btn-primary btn-sm">1</button>
+            <button class="btn btn-secondary btn-sm" disabled>Next</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,239 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Generated Plan - VisitPlanner{% endblock %}
+
+{% block extra_css %}
+<style>
+    .timeline {
+        position: relative;
+        padding-left: 2rem;
+        margin: 2rem 0;
+    }
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 0.5rem;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: var(--border-color);
+    }
+    .timeline-item {
+        position: relative;
+        margin-bottom: 2rem;
+    }
+    .timeline-dot {
+        position: absolute;
+        left: -2.375rem;
+        top: 0.25rem;
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 50%;
+        background: var(--primary);
+        border: 3px solid var(--surface);
+        box-shadow: 0 0 0 2px var(--primary);
+        z-index: 1;
+    }
+    .day-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+    .day-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-main);
+        margin: 0;
+    }
+    .day-badge {
+        background: var(--bg-color);
+        border: 1px solid var(--border-color);
+        padding: 0.25rem 0.75rem;
+        border-radius: 2rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--text-muted);
+    }
+    .route-card {
+        background: var(--surface);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        transition: var(--transition);
+        box-shadow: var(--shadow-sm);
+    }
+    .route-card:hover {
+        border-color: var(--primary);
+        box-shadow: var(--shadow-md);
+    }
+    .route-time {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        min-width: 4rem;
+        text-align: right;
+    }
+    .route-divider {
+        width: 2px;
+        height: 2rem;
+        background: var(--border-color);
+        margin: 0 1rem;
+    }
+    .route-info { flex: 1; }
+    .route-title { font-weight: 600; font-size: 1rem; margin-bottom: 0.25rem; color: var(--text-main); }
+    .route-meta { font-size: 0.75rem; color: var(--text-muted); display: flex; gap: 1rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+            <h2>AI Optimized Field Plan</h2>
+            <span class="badge badge-success"><i class="fa-solid fa-check"></i> Generated</span>
+        </div>
+        <p style="color: var(--text-muted); margin: 0;">3 Days • 10 Places • Alpha & Beta Teams</p>
+    </div>
+    <div style="display: flex; gap: 0.75rem;">
+        <a href="#" class="btn btn-secondary"><i class="fa-solid fa-sliders"></i> Modify Parameters</a>
+        <a href="#" class="btn btn-primary"><i class="fa-solid fa-file-export"></i> Export PDF</a>
+    </div>
+</div>
+
+<div class="grid md:grid-cols-3 grid-cols-1">
+    
+    <!-- Left Column: Timeline -->
+    <div style="grid-column: span 2;">
+        
+        <!-- Day 1 -->
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="day-header">
+                    <h3 class="day-title">Day 1 Focus: North Zone</h3>
+                    <div class="day-badge"><i class="fa-regular fa-calendar"></i> Oct 12</div>
+                </div>
+                
+                <div class="route-card">
+                    <div class="route-time">09:00</div>
+                    <div class="route-divider" style="background: var(--primary);"></div>
+                    <div class="route-info">
+                        <div class="route-title">Downtown Tech Hub</div>
+                        <div class="route-meta">
+                            <span><i class="fa-solid fa-location-dot"></i> 123 Main St.</span>
+                            <span><i class="fa-solid fa-users"></i> Alpha Team</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-secondary btn-sm">Map</a>
+                </div>
+                
+                <div class="route-card">
+                    <div class="route-time">11:30</div>
+                    <div class="route-divider"></div>
+                    <div class="route-info">
+                        <div class="route-title">Innovation Labs</div>
+                        <div class="route-meta">
+                            <span><i class="fa-solid fa-location-dot"></i> Tech Park, Building C</span>
+                            <span><i class="fa-solid fa-users"></i> Alpha Team</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-secondary btn-sm">Map</a>
+                </div>
+                
+                <div class="route-card">
+                    <div class="route-time">14:00</div>
+                    <div class="route-divider" style="background: var(--warning);"></div>
+                    <div class="route-info">
+                        <div class="route-title">North Zone Headquarters</div>
+                        <div class="route-meta">
+                            <span><i class="fa-solid fa-location-dot"></i> 45 Highland Ave.</span>
+                            <span><i class="fa-solid fa-users"></i> Alpha Team</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-secondary btn-sm">Map</a>
+                </div>
+            </div>
+            
+            <!-- Day 2 -->
+            <div class="timeline-item">
+                <div class="timeline-dot" style="background: var(--info); box-shadow: 0 0 0 2px var(--info);"></div>
+                <div class="day-header">
+                    <h3 class="day-title">Day 2 Focus: East Zone</h3>
+                    <div class="day-badge"><i class="fa-regular fa-calendar"></i> Oct 13</div>
+                </div>
+                
+                <div class="route-card">
+                    <div class="route-time">09:30</div>
+                    <div class="route-divider" style="background: var(--info);"></div>
+                    <div class="route-info">
+                        <div class="route-title">Central Station</div>
+                        <div class="route-meta">
+                            <span><i class="fa-solid fa-location-dot"></i> 1 East Ave.</span>
+                            <span><i class="fa-solid fa-users"></i> Beta Team</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-secondary btn-sm">Map</a>
+                </div>
+                
+                <div class="route-card">
+                    <div class="route-time">13:00</div>
+                    <div class="route-divider"></div>
+                    <div class="route-info">
+                        <div class="route-title">City Archives</div>
+                        <div class="route-meta">
+                            <span><i class="fa-solid fa-location-dot"></i> Historical District</span>
+                            <span><i class="fa-solid fa-users"></i> Beta Team</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-secondary btn-sm">Map</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Right Column: Summary -->
+    <div style="grid-column: span 1;">
+        <div class="card" style="position: sticky; top: 5rem;">
+            <div class="card-header">
+                <h3 class="card-title">Plan Summary</h3>
+            </div>
+            <div class="card-body" style="display: flex; flex-direction: column; gap: 1rem;">
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-muted);">Duration</span>
+                    <span style="font-weight: 600;">3 Days</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-muted);">Total Places</span>
+                    <span style="font-weight: 600;">10 Places</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-muted);">Teams Utilized</span>
+                    <span style="font-weight: 600;">2 Teams</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-muted);">Est. Travel Distance</span>
+                    <span style="font-weight: 600;">~45 miles</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color);">
+                    <span style="color: var(--text-muted);">Optimization</span>
+                    <span class="badge badge-success" style="background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%); color: white;">AI Enhanced</span>
+                </div>
+                
+                <div style="margin-top: 1rem;">
+                    <button class="btn btn-primary" style="width: 100%; justify-content: center;"><i class="fa-solid fa-check"></i> Approve Plan</button>
+                    <button class="btn btn-secondary" style="width: 100%; justify-content: center; margin-top: 0.5rem;"><i class="fa-solid fa-rotate-right"></i> Regenerate</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

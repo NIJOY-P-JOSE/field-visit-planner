@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Create Event - VisitPlanner{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Create New Event</h2>
+    <a href="{% url 'event_list' %}" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Back to Events</a>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Event Details</h3>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{% url 'event_create' %}">
+            {% csrf_token %}
+            
+            <div class="grid md:grid-cols-2 grid-cols-1">
+                <div class="form-group">
+                    <label class="form-label" for="id_name">Name <span style="color: var(--danger);">*</span></label>
+                    <input type="text" name="name" id="id_name" class="form-control" required placeholder="Event Name">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="id_date">Date <span style="color: var(--danger);">*</span></label>
+                    <input type="date" name="date" id="id_date" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="id_venue">Venue <span style="color: var(--danger);">*</span></label>
+                    <input type="text" name="venue" id="id_venue" class="form-control" required placeholder="Location/Venue">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="id_coordinator">Coordinator</label>
+                    <select name="coordinator" id="id_coordinator" class="form-control">
+                        <option value="">Select Coordinator...</option>
+                        <option value="1">John Doe</option>
+                        <option value="2">Jane Smith</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="id_number_of_people">Expected Number of People</label>
+                    <input type="number" name="number_of_people" id="id_number_of_people" class="form-control" placeholder="e.g. 50">
+                </div>
+            </div>
+            
+            <div class="form-group" style="margin-top: 1rem;">
+                <label class="form-label" for="id_description">Description</label>
+                <textarea name="description" id="id_description" rows="4" class="form-control" placeholder="Event details and notes..."></textarea>
+            </div>
+            
+            <div class="form-actions" style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: flex-end; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                <button type="reset" class="btn btn-secondary">Clear</button>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Save Event</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

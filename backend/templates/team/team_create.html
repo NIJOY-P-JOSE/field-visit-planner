@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+
+{% block title %}{% if is_edit %}Edit{% else %}Add{% endif %} Team - VisitPlanner{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>{% if is_edit %}Edit Team: {{ team.name }}{% else %}Create New Team{% endif %}</h2>
+    <a href="{% url 'team_list' %}" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Back to Teams</a>
+</div>
+
+<div class="card" style="max-width: 800px; margin: 0 auto;">
+    <div class="card-header">
+        <h3 class="card-title">Team Information</h3>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{% url 'team_create' %}">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label class="form-label" for="id_name">Team Name <span style="color: var(--danger);">*</span></label>
+                <input type="text" name="name" id="id_name" class="form-control" required placeholder="e.g. Alpha Team" value="{{ team.name|default:'' }}">
+            </div>
+            
+            <div class="grid md:grid-cols-2 grid-cols-1">
+                <div class="form-group">
+                    <label class="form-label" for="id_start_date">Start Date</label>
+                    <input type="date" name="start_date" id="id_start_date" class="form-control" value="{{ team.start_date|default:'' }}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="id_end_date">End Date</label>
+                    <input type="date" name="end_date" id="id_end_date" class="form-control" value="{{ team.end_date|default:'' }}">
+                </div>
+            </div>
+            
+            <div class="form-group" style="margin-top: 1rem;">
+                <label class="form-label" for="id_members">Team Members (Multi-select)</label>
+                <select name="members" id="id_members" class="form-control" multiple style="height: 120px;" required>
+                    <option value="1">John Smith (Manager)</option>
+                    <option value="2">Jane Doe (Coordinator)</option>
+                    <option value="3">Mike Johnson (Field Agent)</option>
+                    <option value="4">Sarah Williams (Field Agent)</option>
+                </select>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">Hold Ctrl/Cmd to select multiple members.</span>
+            </div>
+            
+            <div class="form-group" style="margin-top: 1rem;">
+                <label class="form-label" for="id_assigned_places">Assigned Places</label>
+                <select name="assigned_places" id="id_assigned_places" class="form-control" multiple style="height: 120px;">
+                    <option value="1">Downtown Tech Hub</option>
+                    <option value="2">Central Station</option>
+                    <option value="3">North Zone Headquarters</option>
+                </select>
+            </div>
+            
+            <div class="form-actions" style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: flex-end; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                <a href="#" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Save Team</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

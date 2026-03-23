@@ -1,0 +1,111 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Smart Planning - VisitPlanner{% endblock %}
+
+{% block extra_css %}
+<style>
+    .toggle-container {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 2rem;
+    }
+    .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 3rem;
+        height: 1.5rem;
+    }
+    .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    .toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: var(--border-color);
+        transition: .4s;
+        border-radius: 2rem;
+    }
+    .toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 1.125rem;
+        width: 1.125rem;
+        left: 0.1875rem;
+        bottom: 0.1875rem;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+    input:checked + .toggle-slider {
+        background: var(--gradient-accent);
+    }
+    input:checked + .toggle-slider:before {
+        transform: translateX(1.5rem);
+    }
+    .ai-badge {
+        background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: var(--radius-md);
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-header" style="justify-content: center; text-align: center; margin-top: 2rem; flex-direction: column; gap: 1rem;">
+    <div style="font-size: 3rem; color: var(--primary);"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+    <h2 style="font-size: 2rem; margin: 0;">Smart Plan Generation</h2>
+    <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Automatically generate an optimized field visit schedule based on priority, location, and team constraints.</p>
+</div>
+
+<div class="card" style="max-width: 600px; margin: 3rem auto;">
+    <div class="card-body">
+        <form method="POST" action="{% url 'plan_result' %}">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label class="form-label">Select Event Context (Optional)</label>
+                <select name="event" class="form-control">
+                    <option value="">-- Standalone Plan --</option>
+                    <option value="1">Annual Tech Conference</option>
+                </select>
+            </div>
+            
+            <div class="grid grid-cols-2" style="margin-top: 1.5rem; margin-bottom: 2rem;">
+                <div class="form-group">
+                    <label class="form-label">Plan Duration (Days)</label>
+                    <input type="number" name="duration" class="form-control" value="3" min="1" max="14">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Max Visited / Day</label>
+                    <input type="number" name="max_places" class="form-control" value="5" min="1" max="20">
+                </div>
+            </div>
+            
+            <div style="background: var(--bg-color); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                <div class="toggle-container" style="margin-bottom: 0.5rem;">
+                    <label class="toggle-switch">
+                        <input type="checkbox" name="use_ai" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <span style="font-weight: 600; color: var(--text-main);">Enable AI Optimization <span class="ai-badge"><i class="fa-solid fa-bolt"></i> PRO</span></span>
+                </div>
+                <p style="font-size: 0.875rem; color: var(--text-muted); margin: 0; padding-left: 3.75rem;">Uses advanced routing algorithms to minimize travel time and maximize visits per day.</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.125rem; width: 100%; justify-content: center; background: linear-gradient(135deg, #a855f7 0%, var(--primary) 100%);">
+                    <i class="fa-solid fa-cogs"></i> Generate Smart Plan
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

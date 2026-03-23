@@ -1,0 +1,113 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Places - VisitPlanner{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h2>Places Directory</h2>
+        <p style="color: var(--text-muted); margin: 0;">Manage all locations for field visits.</p>
+    </div>
+    <div style="display: flex; gap: 0.75rem;">
+        <a href="#" class="btn btn-secondary"><i class="fa-solid fa-upload"></i> Import</a>
+        <a href="{% url 'place_create' %}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add Place</a>
+    </div>
+</div>
+
+<div class="card" style="margin-bottom: 2rem;">
+    <div class="card-body" style="padding: 1rem 1.5rem;">
+        <form method="GET" style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end;">
+            <div style="flex: 1; min-width: 200px;">
+                <label class="form-label" style="margin-bottom: 0.25rem; display: block;">Search</label>
+                <div style="position: relative;">
+                    <i class="fa-solid fa-search" style="position: absolute; left: 1rem; top: 1rem; color: var(--text-muted);"></i>
+                    <input type="text" name="q" class="form-control" placeholder="Search by name, phone..." style="padding-left: 2.5rem;">
+                </div>
+            </div>
+            <div style="width: 200px;">
+                <label class="form-label" style="margin-bottom: 0.25rem; display: block;">Status</label>
+                <select name="status" class="form-control">
+                    <option value="">All Statuses</option>
+                    <option value="pending">Pending</option>
+                    <option value="visited">Visited</option>
+                </select>
+            </div>
+            <div style="width: 200px;">
+                <label class="form-label" style="margin-bottom: 0.25rem; display: block;">Location</label>
+                <select name="location" class="form-control">
+                    <option value="">All Locations</option>
+                    <option value="north">North Zone</option>
+                    <option value="south">South Zone</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-secondary" style="height: 42px;">Filter</button>
+        </form>
+    </div>
+</div>
+
+<div class="card" style="padding: 0;">
+    <div class="table-responsive" style="border: none; border-radius: 0;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Location</th>
+                    <th>Team Assigned</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for place in places %}
+                <tr>
+                    <td>
+                        <div style="font-weight: 500;">{{ place.name }}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Event: {{ place.event.name }}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Priority: {{ place.get_priority_display }}</div>
+                    </td>
+                    <td>
+                        <div>{{ place.phone }}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">{{ place.email }}</div>
+                    </td>
+                    <td>{{ place.location }}</td>
+                    <td>
+                        {% if place.assigned_team %}
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div class="profile-avatar" style="width: 1.5rem; height: 1.5rem; font-size: 0.6rem; background: var(--primary);">T</div>
+                            <span>{{ place.assigned_team.name }}</span>
+                        </div>
+                        {% else %}
+                        <span style="color: var(--text-muted); font-size: 0.875rem;">Unassigned</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span class="badge badge-{% if place.status == 'visited' %}success{% elif place.status == 'pending' %}warning{% else %}primary{% endif %}">
+                            {{ place.get_status_display }}
+                        </span>
+                    </td>
+                    <td style="text-align: right;">
+                        <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+                            <a href="{% url 'place_detail' place.id %}" class="btn btn-secondary btn-sm" title="View"><i class="fa-solid fa-eye"></i></a>
+                            <a href="{% url 'place_edit' place.id %}" class="btn btn-secondary btn-sm" title="Edit"><i class="fa-solid fa-edit"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">No places available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card-body" style="border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem;">
+        <span style="font-size: 0.875rem; color: var(--text-muted);">Showing entries</span>
+        <div style="display: flex; gap: 0.25rem;">
+            <button class="btn btn-secondary btn-sm" disabled>Previous</button>
+            <button class="btn btn-primary btn-sm">1</button>
+            <button class="btn btn-secondary btn-sm" disabled>Next</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

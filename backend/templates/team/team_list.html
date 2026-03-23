@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Teams - VisitPlanner{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <h2>Field Teams</h2>
+        <p style="color: var(--text-muted); margin: 0;">Manage your field agents and team assignments.</p>
+    </div>
+    <a href="{% url 'team_create' %}" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create Team</a>
+</div>
+
+<div class="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
+    {% for team in teams %}
+    <!-- Team Card -->
+    <div class="card" style="text-align: center;">
+        <div class="card-body" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+            <div class="stat-icon" style="background: var(--gradient-accent); color: white; width: 4rem; height: 4rem; font-size: 1.5rem; border-radius: 50%;">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <div>
+                <h3 style="margin: 0; font-size: 1.25rem;">{{ team.name }}</h3>
+                <span class="badge badge-success" style="margin-top: 0.5rem;">Active</span>
+            </div>
+            
+            <div class="grid grid-cols-2" style="width: 100%; gap: 1rem; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); padding: 1rem 0;">
+                <div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-main);">{{ team.members.count }}</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Members</div>
+                </div>
+                <div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--text-main);">{{ team.assigned_places.count }}</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Assigned Places</div>
+                </div>
+            </div>
+            
+            <div style="display: flex; width: 100%; gap: 0.5rem;">
+                <a href="{% url 'team_edit' team.id %}" class="btn btn-secondary" style="flex: 1;"><i class="fa-solid fa-edit"></i> Edit</a>
+                <a href="{% url 'team_detail' team.id %}" class="btn btn-primary" style="flex: 1;"><i class="fa-solid fa-eye"></i> View</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p style="grid-column: 1 / -1; color: var(--text-muted); text-align: center; padding: 2rem;">No teams found. Create one to get started.</p>
+    {% endfor %}
+</div>
+{% endblock %}

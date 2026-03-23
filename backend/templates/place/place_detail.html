@@ -1,0 +1,97 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Place Details - VisitPlanner{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+            <h2>{{ place.name }}</h2>
+            <span class="badge badge-warning">{{ place.get_status_display }}</span>
+            <span class="badge badge-danger">{{ place.get_priority_display }} Priority</span>
+        </div>
+        <p style="color: var(--text-muted); margin: 0;"><i class="fa-solid fa-location-dot"></i> {{ place.address }}, {{ place.location }}</p>
+    </div>
+    <div style="display: flex; gap: 0.75rem;">
+        <a href="{% url 'place_list' %}" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Back</a>
+        <a href="{% url 'place_edit' place.id %}" class="btn btn-secondary"><i class="fa-solid fa-edit"></i> Edit</a>
+        <a href="#" class="btn btn-primary"><i class="fa-solid fa-check"></i> Mark Visited</a>
+    </div>
+</div>
+
+<div class="grid md:grid-cols-3 grid-cols-1">
+    
+    <!-- Left Column: Details -->
+    <div style="grid-column: span 2; display: flex; flex-direction: column; gap: 1.5rem;">
+        <div class="card">
+            <div class="card-header"><h3 class="card-title">Contact Information</h3></div>
+            <div class="card-body">
+                <div class="grid sm:grid-cols-2 grid-cols-1" style="gap: 1.5rem;">
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.25rem;">Primary Contact / Family</div>
+                        <div style="font-weight: 500; font-size: 1.125rem;">{{ place.family|default:"N/A" }}</div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.25rem;">Phone Number</div>
+                        <div style="font-weight: 500;"><a href="tel:{{ place.phone }}" style="color: var(--primary);">{{ place.phone }}</a></div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.25rem;">Email Address</div>
+                        <div style="font-weight: 500;"><a href="mailto:{{ place.email|default:'' }}" style="color: var(--primary);">{{ place.email|default:"N/A" }}</a></div>
+                    </div>
+                    <div>
+                        <div style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.25rem;">Full Address</div>
+                        <div style="font-weight: 500;">{{ place.address }}<br>{{ place.location }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header"><h3 class="card-title">Notes & Details</h3></div>
+            <div class="card-body">
+                <div style="padding: 1rem; background: var(--bg-color); border-radius: var(--radius-md); border-left: 4px solid var(--primary);">
+                    <p style="margin: 0; line-height: 1.6;">{{ place.notes|default:"No notes available." }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Right Column: Assignments -->
+    <div class="card" style="height: fit-content;">
+        <div class="card-header">
+            <h3 class="card-title">Assignments</h3>
+        </div>
+        <div class="card-body" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            
+            <div>
+                <h4 style="font-size: 0.875rem; color: var(--text-muted); text-transform: uppercase; margin-top: 0; margin-bottom: 0.75rem;">Assigned Team</h4>
+                {% if place.assigned_team %}
+                <div style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                    <div class="stat-icon" style="background: #e0e7ff; color: #3730a3; width: 2.5rem; height: 2.5rem; font-size: 1rem;"><i class="fa-solid fa-users"></i></div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; font-size: 0.875rem;">{{ place.assigned_team.name }}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);"><a href="{% url 'team_detail' place.assigned_team.id %}">View Team</a></div>
+                    </div>
+                </div>
+                {% else %}
+                <p style="color: var(--text-muted); font-size: 0.875rem;">No team assigned.</p>
+                {% endif %}
+            </div>
+            
+            <div>
+                <h4 style="font-size: 0.875rem; color: var(--text-muted); text-transform: uppercase; margin-top: 0; margin-bottom: 0.75rem;">Related Event</h4>
+                <div style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                    <div class="stat-icon" style="background: #d1fae5; color: #065f46; width: 2.5rem; height: 2.5rem; font-size: 1rem;"><i class="fa-solid fa-calendar"></i></div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; font-size: 0.875rem;">{{ place.event.name }}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">{{ place.event.date }}</div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'base/base.html' %}
+
+{% block title %}User Profile - VisitPlanner{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>User Profile</h2>
+    <a href="{% url 'user_list' %}" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Back</a>
+</div>
+
+<div class="grid md:grid-cols-3 grid-cols-1">
+    
+    <!-- Profile Card -->
+    <div class="card" style="grid-column: span 1; text-align: center;">
+        <div class="card-body" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+            <div class="profile-avatar" style="background: var(--gradient-accent); width: 6rem; height: 6rem; font-size: 2rem; border-radius: 50%;">
+                JS
+            </div>
+            
+            <div>
+                <h3 style="margin: 0; font-size: 1.25rem;">John Smith</h3>
+                <div style="color: var(--primary); font-weight: 500; font-size: 0.875rem; margin-top: 0.25rem;">Manager</div>
+            </div>
+            
+            <div style="display: flex; gap: 0.5rem; width: 100%;">
+                <a href="#" class="btn btn-primary" style="flex: 1;"><i class="fa-solid fa-envelope"></i> Message</a>
+                <a href="#" class="btn btn-secondary" style="flex: 1;"><i class="fa-solid fa-edit"></i> Edit</a>
+            </div>
+            
+            <hr style="width: 100%; border: none; border-top: 1px solid var(--border-color); margin: 0.5rem 0;">
+            
+            <div style="width: 100%; text-align: left; display: flex; flex-direction: column; gap: 1rem;">
+                <div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Email</div>
+                    <div style="font-size: 0.875rem; font-weight: 500;">john.smith@example.com</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Phone</div>
+                    <div style="font-size: 0.875rem; font-weight: 500;">+1 234 567 890</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Address</div>
+                    <div style="font-size: 0.875rem; font-weight: 500;">456 Park Avenue<br>Central City, CA 90210</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Activity & Details -->
+    <div style="grid-column: span 2; display: flex; flex-direction: column; gap: 1.5rem;">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Current Assignments</h3>
+            </div>
+            <div class="card-body">
+                <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 1rem;">
+                    <div class="stat-icon" style="background: #e0e7ff; color: #3730a3; width: 2.5rem; height: 2.5rem; font-size: 1rem;"><i class="fa-solid fa-users"></i></div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; font-size: 0.875rem;">Alpha Team (Manager)</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Assigned Oct 1</div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                    <div class="stat-icon" style="background: #d1fae5; color: #065f46; width: 2.5rem; height: 2.5rem; font-size: 1rem;"><i class="fa-solid fa-calendar"></i></div>
+                    <div style="flex: 1;">
+                        <div style="font-weight: 600; font-size: 0.875rem;">Annual Tech Conference</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Lead Coordinator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Recent Activity</h3>
+            </div>
+            <div class="card-body" style="padding: 0 1.5rem 1.5rem 1.5rem;">
+                <!-- Reusing activity items from dashboard -->
+                <div style="display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border-color);">
+                    <div style="width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--primary); margin-top: 0.375rem;"></div>
+                    <div>
+                        <div style="font-weight: 500; font-size: 0.875rem;">Updated Place Details</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Central Station • 2 hours ago</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border-color);">
+                    <div style="width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--success); margin-top: 0.375rem;"></div>
+                    <div>
+                        <div style="font-weight: 500; font-size: 0.875rem;">Completed Visit</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">North Zone Headquarters • Yesterday</div>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 1rem; padding: 1rem 0;">
+                    <div style="width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--warning); margin-top: 0.375rem;"></div>
+                    <div>
+                        <div style="font-weight: 500; font-size: 0.875rem;">Logged In</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">System Dashboard • Yesterday</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
